@@ -4,8 +4,10 @@ import "./CharacterDetail.css";
 
 function CharacterDetail(props) {
   const id= props.match.params.id; // Alternativa const {id} = useParams();
-  console.log("La id", id)
-
+  
+  
+  console.log("Props", props);
+  //props.getCharacterDetail(props.match.params.id)
   const [character, setCharacter] = useState({}); //Importante setearlo como objeto vacío
 
   useEffect(()=>{
