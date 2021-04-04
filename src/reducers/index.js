@@ -1,4 +1,4 @@
-import {ADD_QUOTE} from "../actions";// Equivale a "../actions/index"
+import {ADD_QUOTE, GET_CHARACTERS, GET_CHARACTER_DETAIL, GET_EPISODES, EMPTY_CHARACTER_DETAIL} from "../actions";// Equivale a "../actions/index"
 
 //==== Setear Estado Global Inicial ======//
 
@@ -25,16 +25,27 @@ function rootReducer(state = initialState, action){
     }
     */
     if(action.type === ADD_QUOTE){
-        console.log("Esto viene del reducer",action.payload)
         return {
             ...state,
             quote: action.payload
         }
     }
-    if(action.type === "LOAD_CHARACTERS"){
+    if(action.type === "GET_CHARACTERS"){
         return {
             ...state,
             characters: action.payload
+        }
+    }
+    if(action.type === "GET_CHARACTER_DETAIL"){
+        return {
+            ...state,
+            characterDetail: action.payload
+        }
+    }
+    if(action.type === "EMPTY_CHARACTER_DETAIL") {
+        return {
+            ...state,
+            characterDetail:{}
         }
     }
 

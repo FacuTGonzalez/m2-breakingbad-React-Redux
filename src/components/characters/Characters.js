@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import {connect} from "react-redux";
+import {getCharacters} from "../../actions";
 import Spinner from "../Spinner";
+
 import "./Characters.css";
 
-function Characters() {
-
-  const [characters, setCharacters] = useState([]);
+function Characters(props) {
+  
   const [query, setQuery] = useState('');
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(()=>{
-    fetch(`https://www.breakingbadapi.com/api/characters?name=${query}`)
-    .then((res)=>{return res.json()})
-    .then((json)=>setCharacters(json))
-    .then(()=>setIsLoading(false))
-    
-
-    console.log(characters);
+    async function fetchData(){
+      await props.getCharacters()
+      console.log("Here are the characters",props.characters);
+      setIsLoading(false)
+      
+    }
+    fetchData()
   },[query])
   /*
     PISTA:
@@ -56,16 +58,17 @@ function Characters() {
 
       <ul className="Characters__list">
         {/*El loading le va a dar un efecto de carga hasta que la peticion de la API llegue, no tocar!.*/}
-        {isLoading ? (
-          <Spinner />
-        ) :      
-          characters.map((c) => 
+        {
+        props.characters ? 
+          props.characters.map((c) => 
           <li key={c.char_id}>
             <Link to={`/characters/${c.char_id}`}>
               {c.name}
             </Link>
           </li>
-          )
+          ) 
+        :  <Spinner /> 
+          
       
         }
       </ul>
@@ -73,4 +76,20 @@ function Characters() {
   );
 }
 
-export default Characters;
+
+function mapStateToProps(state){
+  return {
+    ...state
+  }
+}
+
+
+//Actions
+function mapDispatchToProps(dispatch) {
+  return {
+    getCharacters: () => dispatch(getCharacters())
+  }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(Characters);
+

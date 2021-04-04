@@ -1,28 +1,48 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import logo from "../../img/logo.png";
 import "./Home.css";
 import {addQuote} from "../../actions";
 import {connect} from "react-redux";
+import Spinner from '../Spinner'
+
+//import { useSelector } from "react-redux";
 
 function Home(props) {
-  //console.log("LAS PROPS", props)  
+  //useSelector para traerse el estado.
+  //const {quote} = useSelector((state)=>state)
+  
+  // También se puede usar esta alternativa 
+  //useSelector((state)=>state.quote)
+
+  
+  //useDispatch para llamar a las acciones
+  //const dispatch = useDispatch();
+  
   
   useEffect(()=>{
-    props.addQuote();
-
-    console.log(props.quote);
+    //Forma de despachar la acción
+    //dispatch(addQuote());
+    //console.log(props.quote);
+    async function fetchData(){
+      await props.addQuote();
+      console.log("Here is the quote", props.quote)
+    }
+    fetchData();
   },[])  
 
   return (
     <div className="Home">
       <img src={logo} alt="" className="Home__logo" />
-      
-      <div>{/*Acá deberíamos poner la quote, con sus datos*/}</div>
-
-    <h3>{props.quote.quote}</h3>
-    <p>{props.quote.author}</p>
-    <p>From: {props.quote.series}</p>    
-    
+      <hr/>
+      {  
+        props.quote ?
+        <div> 
+          <h2>"{props.quote.quote}"</h2>
+          <h3>{props.quote.author}</h3>
+          <p>From: {props.quote.series}</p>
+        </div>
+        : <Spinner/>   
+      }    
     </div>
   );
 }
@@ -33,7 +53,7 @@ function Home(props) {
 
 function mapStateToProps(state){
   return {
-    quote : state.quote
+    ...state
   }
 }
 
@@ -45,6 +65,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps,mapDispatchToProps)(Home);
