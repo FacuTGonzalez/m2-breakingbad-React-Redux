@@ -7,6 +7,7 @@ import NavBar from './components/navbar/NavBar';
 import Characters from './components/characters/Characters';
 import CharacterDetail from './components/characterDetails/CharacterDetail';
 import Episodes from './components/episodes/Episodes';
+import EpisodeDetail from './components/episodeDetail/EpisodeDetail'
 
 function App() {
   return (
@@ -15,7 +16,8 @@ function App() {
       <Route exact path = "/" component = {Home}/>
       <Route path = "/characters/:id" component = {CharacterDetail}/>
       <Route exact path = "/characters" component = {Characters}/> 
-      <Route path = "/episodes" component = {Episodes}/>
+      <Route exact path = "/episodes" component = {Episodes}/>
+      <Route exact path = "/episodes/:id" component = {EpisodeDetail}/>
     </BrowserRouter>
   );
 }

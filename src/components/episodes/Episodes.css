@@ -7,3 +7,7 @@
 .Episodes__list {
   list-style: none;
 }
+
+.Episodes__list li {
+  margin-top: 1em;
+}

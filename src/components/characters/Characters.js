@@ -9,16 +9,13 @@ import "./Characters.css";
 function Characters(props) {
   
   const [query, setQuery] = useState('');
-  const [isLoading, setIsLoading] = useState(true);
+
 
   useEffect(()=>{
-    async function fetchData(){
-      await props.getCharacters()
-      console.log("Here are the characters",props.characters);
-      setIsLoading(false)
-      
+    async function fetchData(query){
+      await props.getCharacters(query)
     }
-    fetchData()
+    fetchData(query)
   },[query])
   /*
     PISTA:
@@ -87,7 +84,7 @@ function mapStateToProps(state){
 //Actions
 function mapDispatchToProps(dispatch) {
   return {
-    getCharacters: () => dispatch(getCharacters())
+    getCharacters: (query) => dispatch(getCharacters(query))
   }
 }
 
