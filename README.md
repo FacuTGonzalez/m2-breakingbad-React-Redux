@@ -26,7 +26,7 @@ Esta es nuestra ruta principal. Aquí tendremos que definir nuestras rutas(el ro
 En esta ruta vamos a hacer la llamada a la API que nos devuelve
 una quote aleatoria de la serie. Vamos a utilizar esa quote para que cada vez que entremos se muestre una diferente.
 
-Deberia quedar asi:
+Deberia quedar asi:}
 
 <p align="center">
   <img src="./img/Home.png" alt="Img" />
